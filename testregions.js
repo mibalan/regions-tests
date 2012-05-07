@@ -17,19 +17,35 @@ $(function () {
     module("CSS Regions basic")
     
     test("Named flow - content should be pulled to a flow", function(){ 
-        setup();   
+        setup();
         
         ok($flow.css("-webkit-flow-into") == "article");
         
         teardown();
     })
     
-    test("Region - should consume from flow", function(){        
+    test("Region - should consume from flow", function(){
         setup();
 
         ok($region.css("-webkit-flow-from") == "article");
 
         teardown();
+    })
+
+    test("Region properties - region-overflow property", function() {
+        //TODO
+    })
+
+    test("Region break properties - break-before property", function(){
+        //TODO
+    })
+
+    test("Region break properties - break-after property", function(){
+        //TODO
+    })
+
+    test("Region break properties - break-inside property", function(){
+        //TODO
     })
     
     module("CSS OM");
@@ -39,7 +55,7 @@ $(function () {
         
         ok(document.webkitGetFlowByName("article"));
         
-        teardown();           
+        teardown();
     }) 
     
     test("NamedFlow should have overflow property", function(){ 
@@ -48,6 +64,20 @@ $(function () {
         ok(document.webkitGetFlowByName("article").overflow === false)   
 
         teardown(); 
+    })
+
+    test("NamedFlow should have contentNodes property", function() {
+        //TODO
+    })
+
+    test("NamedFlow contentNodes should return a list of nodes", function() {
+        //TODO
+    })
+    test("NamedFlow should have getRegionsByContentNodes() function", function() {
+        //TODO
+    })
+    test("NamedFlow getRegionsByContentNodes should return NodeList", function() {
+        //TODO
     })
     
     test("Element should have regionOverflow property", function(){   
@@ -76,4 +106,29 @@ $(function () {
         teardown(); 
     })
 
+    test("Element should have getRegionFlowRanges() function", function() {
+        //TODO
+    })
+
+    test("regionLayoutUpdate event exists", function(){
+        //TODO
+    })
+
+    test("regionLayoutUpdate event is thrown", function(){
+        //TODO
+    })
+
+    module(" Region styling");
+
+    test("Creating @region rule", function() {
+        //TODO
+    })
+
+    test("Function to get region styling exists", function() {
+        //TODO
+    })
+
+    test("Minimal region styling is applied", function() {
+        //TODO
+    })
 })   
