@@ -33,19 +33,36 @@ $(function () {
     })
 
     test("Region properties - region-overflow property", function() {
-        //TODO
+        setup();
+        
+        equal($region.css('-webkit-region-overflow'), 'auto', 'Initial default value for region-overflow');
+        
+        $region.css('-webkit-region-overflow', 'break');
+        equal($region.css('-webkit-region-overflow'), 'break', 'region-overflow: break');
+
+        teardown();
     })
 
-    test("Region break properties - break-before property", function(){
-        //TODO
-    })
+    test("Region break properties", function(){
+        function testBreakProperty(prop) {
+            setup();
 
-    test("Region break properties - break-after property", function(){
-        //TODO
-    })
+            equal($region.css(prop), 'auto', 'Initial default value for ' + prop);
 
-    test("Region break properties - break-inside property", function(){
-        //TODO
+            //TODO Since these do not actually overload break-[before|inside|after], the name of the
+            //attributes does not conform to the spec, either.
+            $region.css(prop, 'region');
+            equal($region.css(prop), 'region', 'Always break on ' + prop);
+
+            $region.css(prop, 'avoid-region');
+            equal($region.css(prop), 'avoid-region', 'Avoid breaking on ' + prop);
+
+            teardown();
+        }
+
+        testBreakProperty('-webkit-region-break-before');
+        testBreakProperty('-webkit-region-break-inside');
+        testBreakProperty('-webkit-region-break-after');
     })
     
     module("CSS OM");
@@ -67,17 +84,34 @@ $(function () {
     })
 
     test("NamedFlow should have contentNodes property", function() {
-        //TODO
+        setup();
+
+        var namedFlow = document.webkitGetFlowByName("article");
+        ok(namedFlow.contentNodes, "NamedFlow.contentNodes");
+        equal(namedFlow.contentNodes.length, 1, "NamedFlow.contentNodes has one node")
+
+        teardown();
     })
 
-    test("NamedFlow contentNodes should return a list of nodes", function() {
-        //TODO
+    test("NamedFlow should have getRegionsByContentNode() function", function() {
+        setup();
+
+        var namedFlow = document.webkitGetFlowByName("article");
+        equal(typeof(namedFlow.getRegionsByContentNode), "function", "NamedFlow.getRegionsByContentNode is a function");
+
+        teardown();
     })
-    test("NamedFlow should have getRegionsByContentNodes() function", function() {
-        //TODO
-    })
-    test("NamedFlow getRegionsByContentNodes should return NodeList", function() {
-        //TODO
+    test("NamedFlow getRegionsByContentNode() should return NodeList", function() {
+        setup();
+
+        $flow.html('Foo');
+        var namedFlow = document.webkitGetFlowByName("article");
+        var theRegions = namedFlow.getRegionsByContentNode($flow.contents()[0]);
+
+        equal(theRegions.length, 1, "One region for the content");
+        equal(theRegions[0], $region.get(0), "Same region is returned");
+
+        teardown();
     })
     
     test("Element should have regionOverflow property", function(){   
