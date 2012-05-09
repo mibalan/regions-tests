@@ -126,7 +126,6 @@ $(function () {
     asyncTest("regionLayoutUpdate event is thrown", function(){
         function handler(ev) {
             $region.unbind("webkitRegionLayoutUpdate", handler);
-            console.log(ev.target);
             equal(ev.target, $region[0], "Event.target points to the region");
             teardown();
             start();
