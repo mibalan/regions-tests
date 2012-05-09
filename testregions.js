@@ -43,6 +43,9 @@ $(function () {
         teardown();
     })
 
+    //TODO Rework and re-enable tests once we get a resolution on intended test & current
+    // implementation behavior.
+    /*
     test("Region break properties", function(){
         function testBreakProperty(prop) {
             setup();
@@ -64,6 +67,7 @@ $(function () {
         testBreakProperty('-webkit-region-break-inside');
         testBreakProperty('-webkit-region-break-after');
     })
+    */
     
     module("CSS OM");
     
@@ -140,29 +144,63 @@ $(function () {
         teardown(); 
     })
 
-    test("Element should have getRegionFlowRanges() function", function() {
-        //TODO
+    test("Regions should have getRegionFlowRanges() function", function() {
+        ok(false, "This feature is currently not implemented in WebKit.");
+        //TODO Re-enable once this gets implemented
+        /*
+        setup();
+        $flow.html("Text");
+        
+        equal(typeof($region[0].getRegionFlowRanges), "function", "Element has getRegionFlowRanges() method");
+        var ranges = $region[0].getRegionFlowRanges();
+        equal(ranges.length, 1, "getRegionFlowRanges() returns a valid array");
+        ok(ranges[0] instanceof Range, "getRegionFlowRanges() actually returns an array of Range");
+
+        teardown();
+        */
     })
 
-    test("regionLayoutUpdate event exists", function(){
-        //TODO
+    test("Regular HTML elements should throw exception on getRegionFlowRanges() call", function(){
+        ok(false, "This feature is currently not implemented in WebKit.");
+        //TODO Re-enable once this gets implemented
+        /*
+        var $regular =$('<div/>');
+        $("body").append($regular);
+
+        try {
+            $regular[0].getRegionFlowRanges();
+        } catch (e) {
+            ok(e instanceof DOMException, "Calling getRegionFlowRanges() on non-regions must throw exception")
+        }
+        
+        $regular.remove();
+        */
     })
 
-    test("regionLayoutUpdate event is thrown", function(){
-        //TODO
+    asyncTest("regionLayoutUpdate event is thrown", function(){
+        function handler(ev) {
+            $region.unbind("webkitRegionLayoutUpdate", handler);
+            console.log(ev.target);
+            equal(ev.target, $region[0], "Event.target points to the region");
+            teardown();
+            start();
+        }
+
+        setup();
+        $region.css(
+            {
+                "width": "20px",
+                "height": "20px"
+            }
+        );
+        $flow.html("M");
+        $region.bind("webkitRegionLayoutUpdate", handler);
+        $flow.html("Long text long text long text long long long longer very longer text");
     })
 
-    module(" Region styling");
+    module("Region styling");
 
-    test("Creating @region rule", function() {
-        //TODO
-    })
-
-    test("Function to get region styling exists", function() {
-        //TODO
-    })
-
-    test("Minimal region styling is applied", function() {
-        //TODO
-    })
+    test("Basic @region rule support", function() {
+        ok(window.WebKitCSSRegionRule, "@region rules seem to be supported");
+    });
 })   
