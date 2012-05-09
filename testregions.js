@@ -45,29 +45,6 @@ $(function () {
 
     //TODO Rework and re-enable tests once we get a resolution on intended test & current
     // implementation behavior.
-    /*
-    test("Region break properties", function(){
-        function testBreakProperty(prop) {
-            setup();
-
-            equal($region.css(prop), 'auto', 'Initial default value for ' + prop);
-
-            //TODO Since these do not actually overload break-[before|inside|after], the name of the
-            //attributes does not conform to the spec, either.
-            $region.css(prop, 'region');
-            equal($region.css(prop), 'region', 'Always break on ' + prop);
-
-            $region.css(prop, 'avoid-region');
-            equal($region.css(prop), 'avoid-region', 'Avoid breaking on ' + prop);
-
-            teardown();
-        }
-
-        testBreakProperty('-webkit-region-break-before');
-        testBreakProperty('-webkit-region-break-inside');
-        testBreakProperty('-webkit-region-break-after');
-    })
-    */
     
     module("CSS OM");
     
@@ -144,38 +121,7 @@ $(function () {
         teardown(); 
     })
 
-    test("Regions should have getRegionFlowRanges() function", function() {
-        ok(false, "This feature is currently not implemented in WebKit.");
-        //TODO Re-enable once this gets implemented
-        /*
-        setup();
-        $flow.html("Text");
-        
-        equal(typeof($region[0].getRegionFlowRanges), "function", "Element has getRegionFlowRanges() method");
-        var ranges = $region[0].getRegionFlowRanges();
-        equal(ranges.length, 1, "getRegionFlowRanges() returns a valid array");
-        ok(ranges[0] instanceof Range, "getRegionFlowRanges() actually returns an array of Range");
-
-        teardown();
-        */
-    })
-
-    test("Regular HTML elements should throw exception on getRegionFlowRanges() call", function(){
-        ok(false, "This feature is currently not implemented in WebKit.");
-        //TODO Re-enable once this gets implemented
-        /*
-        var $regular =$('<div/>');
-        $("body").append($regular);
-
-        try {
-            $regular[0].getRegionFlowRanges();
-        } catch (e) {
-            ok(e instanceof DOMException, "Calling getRegionFlowRanges() on non-regions must throw exception")
-        }
-        
-        $regular.remove();
-        */
-    })
+    //TODO Write tests for getRegionFlowRanges() once this gets implemented
 
     asyncTest("regionLayoutUpdate event is thrown", function(){
         function handler(ev) {
