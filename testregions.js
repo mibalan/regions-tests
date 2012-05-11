@@ -156,7 +156,12 @@ $(function () {
     module("Region styling");
 
     test("Basic @region rule support", function() {
-        //FIXME: Still need a way to determine this in a prefix-free way
-        ok(window.WebKitCSSRegionRule, "@region rules seem to be supported");
+        for (var prop in window) {
+            if (window.hasOwnProperty(prop) && prop.indexOf("CSSRegionRule") != -1) {
+                ok(prop, "Found CSSRegionRule constructor, @region rules seem to be supported")
+                return;
+            }
+        }
+        ok(false, "Couldn't find CSSRegionRule constructor on document.");
     });
 })   
